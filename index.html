@@ -95,7 +95,13 @@
 
     // Function to start the progress animation and set the timeout
     function startProgress() {
-      progressBar.style.transition = 'width 3s linear';
+      progressBar.style.transition = 'none';  // Remove transition for instant visual update
+      progressBar.style.width = '0';  // Reset progress bar width
+      
+      // Force a reflow to ensure the width is reset visually before starting animation
+      progressBar.offsetHeight; 
+
+      progressBar.style.transition = 'width 3s linear';  // Reapply transition after reset
       progressBar.style.width = '100%';
       
       // Set timeout to complete the process when the progress finishes
